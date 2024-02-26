@@ -12,6 +12,7 @@ namespace Kutuphane.API.Repositories.KategoriRepository
         {
             _context = context;
         }
+
         public async Task<List<AllKategoriDto>> GetAllAsync()
         {
             string query = "Select * From Kategoriler";
