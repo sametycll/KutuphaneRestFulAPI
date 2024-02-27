@@ -1,5 +1,6 @@
 using Kutuphane.API.Models.DapperContext;
 using Kutuphane.API.Repositories.KategoriRepository;
+using Kutuphane.API.Repositories.KitaplarRepository;
 using Kutuphane.API.Repositories.UyelerRepository;
 using Kutuphane.API.Repositories.YayinEvleriRepository;
 using Kutuphane.API.Repositories.YazarlarRepository;
@@ -12,6 +13,7 @@ builder.Services.AddTransient<IKategoriRepository, KategoriRepository>();
 builder.Services.AddTransient<IUyelerRepository, UyelerRepository>();
 builder.Services.AddTransient<IYayinEvleriRepository,YayinEvleriRepository>();
 builder.Services.AddTransient<IYazarlarRepository,YazarlarRepository>();
+builder.Services.AddTransient<IKitaplarRepository,KitaplarRepository>();
 
 
 builder.Services.AddControllers();

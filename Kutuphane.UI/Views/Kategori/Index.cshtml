@@ -1,0 +1,26 @@
+﻿@model IEnumerable<AllKategoriDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Kategori ID</th>
+        <th>Kategori Adı</th>
+        <th>Kategori Durumu</th>
+    </tr>
+
+    @foreach(var x in Model)
+    {
+        <tr>
+            <td>@x.KategoriID</td>
+            <td>@x.KategoriAdi</td>
+            <td>@x.CategoryStatus</td>
+        </tr>
+    }
+
+      
+</table>
+

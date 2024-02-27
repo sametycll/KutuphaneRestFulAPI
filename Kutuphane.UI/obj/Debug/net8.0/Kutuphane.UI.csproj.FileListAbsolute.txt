@@ -234,3 +234,4 @@ D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.UI\obj\Debug\net8.0\refint\Kutup
 D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.UI\obj\Debug\net8.0\Kutuphane.UI.pdb
 D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.UI\obj\Debug\net8.0\Kutuphane.UI.genruntimeconfig.cache
 D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.UI\obj\Debug\net8.0\ref\Kutuphane.UI.dll
+D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.UI\obj\Debug\net8.0\Kutuphane.UI.sourcelink.json
