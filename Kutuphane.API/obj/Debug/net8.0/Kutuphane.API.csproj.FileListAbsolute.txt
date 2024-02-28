@@ -66,3 +66,5 @@ D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.API\obj\Debug\net8.0\Kutuphane.A
 D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.API\obj\Debug\net8.0\Kutuphane.API.genruntimeconfig.cache
 D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.API\obj\Debug\net8.0\ref\Kutuphane.API.dll
 D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.API\obj\Debug\net8.0\Kutuphane.API.sourcelink.json
+D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\C#.NET.2022_17\KutuphaneRestFulAPI\Kutuphane.API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
