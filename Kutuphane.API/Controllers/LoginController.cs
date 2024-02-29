@@ -24,15 +24,17 @@ namespace Kutuphane.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginKullanicilarDto dto)
         {
-            string query = "Select * From Kullanicilar Where KullaniciAdi=@kullaniciAdi and Sifre=@sifre";
+            string query = "Select * From Kullanicilar Where KullaniciAdi=@kullaniciAdi and Sifre=@sifre";// and Yetki=@yetki";
             var parameters = new DynamicParameters();
             parameters.Add("@kullaniciAdi", dto.KullaniciAdi);
             parameters.Add("@sifre", dto.Sifre);
+            //parameters.Add("@yetki", dto.Yetki);
             using(var connection = _context.CreateConnection())
             {
                 var values = await connection.QueryFirstOrDefaultAsync<LoginKullanicilarDto>(query,parameters);
                 if (values != null)
                 {
+                    
                     return Ok(values);
                 }
                 else
