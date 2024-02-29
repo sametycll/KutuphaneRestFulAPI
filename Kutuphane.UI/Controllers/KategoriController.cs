@@ -1,4 +1,5 @@
 ﻿using Kutuphane.UI.Dtos.KategoriDtos;
+using Kutuphane.UI.Repositories.KategoriRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -7,10 +8,12 @@ namespace Kutuphane.UI.Controllers
     public class KategoriController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private IKategoriRepository _kategoriRepository;
 
-        public KategoriController(IHttpClientFactory httpClientFactory)
+        public KategoriController(IHttpClientFactory httpClientFactory, IKategoriRepository kategoriRepository)
         {
             _httpClientFactory = httpClientFactory;
+            _kategoriRepository = kategoriRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -31,6 +34,7 @@ namespace Kutuphane.UI.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<AllKategoriDto>>(jsonData);
+                await _kategoriRepository.CreateAsync(values);
                 return View(values);
 
             }
