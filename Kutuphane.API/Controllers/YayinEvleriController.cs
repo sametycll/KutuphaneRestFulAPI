@@ -1,4 +1,5 @@
-﻿using Kutuphane.API.Repositories.KategoriRepository;
+﻿using Kutuphane.API.Authentication;
+using Kutuphane.API.Repositories.KategoriRepository;
 using Kutuphane.API.Repositories.YayinEvleriRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,8 @@ namespace Kutuphane.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ServiceFilter(typeof(ApiKeyAuthFilter))]
+
     public class YayinEvleriController : ControllerBase
     {
         public readonly IYayinEvleriRepository _yayinEvleriRepository;

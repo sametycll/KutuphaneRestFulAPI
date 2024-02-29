@@ -1,0 +1,23 @@
+﻿@model LoginKullaniciDto
+
+<section class="login py-5 border-top-1">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8 align-item-center">
+                <div class="border">
+                    <h1 class="bg-gray" style="text-align:center; font-weight:700; padding-top:7px;">Giriş Yap</h1>
+                    <form method="post">
+                        <fieldset class="p-4">
+                            <input class="form-control mb-3" type="text" asp-for="KullaniciAdi" placeholder="Kullanıcı Adınız" required>
+                            <input class="form-control mb-3" type="password" asp-for="Sifre" placeholder="Şifreniz" required>
+                          
+                            <button type="submit" class="btn btn-primary font-weight-bold mt-3">Giriş Yap</button>
+                            <a class="mt-3 d-block text-primary" href="#!">Şifremi Unuttum!</a>
+                            <a class="mt-3 d-inline-block text-primary" href="~/RegisterUser/Index">Kayıt Ol</a>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

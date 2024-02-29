@@ -1,4 +1,5 @@
-﻿using Kutuphane.API.Dtos.KategoriDtos;
+﻿using Kutuphane.API.Authentication;
+using Kutuphane.API.Dtos.KategoriDtos;
 using Kutuphane.API.Repositories.KategoriRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,8 @@ namespace Kutuphane.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ServiceFilter(typeof(ApiKeyAuthFilter))]
+
     public class KategorilerController : ControllerBase
     {
         public readonly IKategoriRepository _kategoriRepository;
