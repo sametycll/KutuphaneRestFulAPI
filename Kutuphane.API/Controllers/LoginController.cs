@@ -2,6 +2,7 @@
 using Kutuphane.API.Dtos.KullanicilarDtos;
 using Kutuphane.API.Models.DapperContext;
 using Kutuphane.API.Repositories.KullanicilarRepository;
+using Kutuphane.API.Tools;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +35,12 @@ namespace Kutuphane.API.Controllers
                 var values = await connection.QueryFirstOrDefaultAsync<LoginKullanicilarDto>(query,parameters);
                 if (values != null)
                 {
-                    
-                    return Ok(values);
+                    CheckUser model = new CheckUser();
+                    model.Username = values.KullaniciAdi;
+                    model.Id = (int)values.KullaniciID;
+                    model.Role = values.Yetki;
+                    var token = JwtTokenGenerator.GenerateToken(model);
+                    return Ok(token);
                 }
                 else
                 {
@@ -46,6 +51,11 @@ namespace Kutuphane.API.Controllers
         }
 
 
-
+        [HttpPost("CreateToken")]
+        public IActionResult CreateToken(CheckUser model)
+        {
+            var values = JwtTokenGenerator.GenerateToken(model);
+            return Ok(values);
+        }
     }
 }

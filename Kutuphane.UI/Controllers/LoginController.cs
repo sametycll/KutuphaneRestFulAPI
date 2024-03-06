@@ -7,6 +7,9 @@ using System.Text.Json;
 using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Text;
+using Humanizer;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 
 namespace Kutuphane.UI.Controllers
@@ -33,30 +36,46 @@ namespace Kutuphane.UI.Controllers
             var client = _httpClientFactory.CreateClient();
             var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("https://localhost:44313/api/Login", content);
+
             if(response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<KullaniciYetki>(jsonData);
-                var claims = new List<Claim>
+                var tokenModel = System.Text.Json.JsonSerializer.Deserialize<JwtResponseVm>(jsonData, new JsonSerializerOptions
                 {
-                    new Claim(ClaimTypes.Name,dto.KullaniciAdi),
-                    new Claim(ClaimTypes.Role,values.Yetki)
-                };
-                var useridentity = new ClaimsIdentity(claims,"admin");
-                ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
-                await HttpContext.SignInAsync(principal);
-                return RedirectToAction("Index","Kategori");
-            }
-            else
-            {
-                return View();
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
 
+                if(tokenModel != null)
+                {
+                    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+                    var token =handler.ReadJwtToken(tokenModel.Token);
+                    var claims=token.Claims.ToList();
+                    
+                    if(tokenModel.Token != null)
+                    {
+                        claims.Add(new Claim("userToken", tokenModel.Token));
+                        var claimsIdentity = new ClaimsIdentity(claims,JwtBearerDefaults.AuthenticationScheme);
+                        var authProps = new AuthenticationProperties
+                        {
+                            ExpiresUtc = tokenModel.ExpireDate,
+                            IsPersistent = true,
+                        };
+
+                        await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
+                        return RedirectToAction("Index", "Kategori");
+
+                    }
+                }
+              
             }
+            return View();
+
         }
 
         public async Task<IActionResult> LogOut()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Login");
         }
 
@@ -65,3 +84,15 @@ namespace Kutuphane.UI.Controllers
 
     }
 }
+
+
+
+//var values = JsonConvert.DeserializeObject<KullaniciYetki>(jsonData);
+//var claims = new List<Claim>
+//{
+//                    new Claim(ClaimTypes.Name,dto.KullaniciAdi),
+//                    new Claim(ClaimTypes.Role,values.Yetki)
+//                };
+//var useridentity = new ClaimsIdentity(claims, "admin");
+//ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
+//await HttpContext.SignInAsync(principal);
